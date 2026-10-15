@@ -45,7 +45,7 @@ source .venv/bin/activate
 
 ## Add data
 
-The `data/` directory is intentionally empty. Put processed `.txt` or `.md`
+The data folder provides some of the textbook and scholarly papers of IB History. If you would like to add more, put processed `.txt` or `.md`
 documents directly inside it. It is ignored by Git to prevent accidental upload
 of textbooks and subscription papers.
 
