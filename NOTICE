@@ -1,0 +1,9 @@
+ClioAgent is based on Microsoft GraphRAG 3.3.0.
+
+Copyright (c) Microsoft Corporation.
+GraphRAG is licensed under the MIT License. The original license is preserved in
+the repository root and applicable source files.
+
+ClioAgent-specific modifications include the history ontology, prompts,
+configuration, command-line wrapper, and repository reduction.
+

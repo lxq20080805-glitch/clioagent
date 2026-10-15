@@ -1,0 +1,37 @@
+[project]
+name = "clioagent-monorepo"
+version = "0.1.0"
+description = "Evidence-grounded GraphRAG for IB History and historiography."
+requires-python = ">=3.11,<3.14"
+classifiers = ["Private :: Do Not Upload"]
+
+[dependency-groups]
+dev = ["pytest~=9.1", "ruff~=0.16"]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+clioagent = { workspace = true }
+graphrag = { workspace = true }
+graphrag-cache = { workspace = true }
+graphrag-chunking = { workspace = true }
+graphrag-common = { workspace = true }
+graphrag-input = { workspace = true }
+graphrag-llm = { workspace = true }
+graphrag-storage = { workspace = true }
+graphrag-vectors = { workspace = true }
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

@@ -1,0 +1,65 @@
+-Goal-
+Extract a small, source-grounded knowledge graph from IB History textbooks and
+academic papers. Connect historical evidence to historiographical interpretations
+without inventing authorship, disagreement, quotations, or facts.
+
+-Entity types-
+Use only one of these types: [{entity_types}]
+
+HISTORIAN: a scholar explicitly named in the text.
+HISTORICAL_EVENT: a dated event, development, policy, decision, or process.
+HISTORICAL_EVIDENCE: a primary-source statement, statistic, documented action,
+law, treaty, record, or other concrete evidence used to support an interpretation.
+INTERPRETATION: a distinct explanatory or evaluative historical claim explicitly
+attributed to a historian or to the author of the current paper.
+
+-Rules-
+1. Separate evidence from interpretation.
+2. Create an INTERPRETATION only when the text explicitly supports the attribution.
+3. Distinguish the current author's position from historians whom they quote,
+summarize, criticize, or cite.
+4. Never infer a historian's position from general knowledge.
+5. Do not create a disagreement merely because two interpretations differ.
+6. Preserve author, title, year, and page markers in descriptions when the input
+provides them. Never invent missing bibliographic details or page numbers.
+7. Relationship descriptions must begin with exactly one label:
+[ARGUES], [SUPPORTED_BY], [CHALLENGES], [QUALIFIES], or [RELATES_TO].
+8. If attribution or evidence is ambiguous, describe the uncertainty explicitly.
+
+-Steps-
+1. Identify all qualifying entities. Format each as:
+("entity"<|><entity_name><|><entity_type><|><entity_description>)
+
+2. Identify only relationships explicitly supported by the input. Format each as:
+("relationship"<|><source_entity><|><target_entity><|><relationship_description><|><relationship_strength>)
+
+Use relationship strength 8-10 for direct, explicit statements; 5-7 for clear
+paraphrases; and 1-4 for uncertain or indirect connections.
+
+3. Return output in English as one list. Use ## as the list delimiter.
+4. When finished, output <|COMPLETE|>.
+
+-Example-
+Entity_types: HISTORIAN,HISTORICAL_EVENT,HISTORICAL_EVIDENCE,INTERPRETATION
+Text:
+[PAGE 42] Historian Jane Smith argues that wartime shortages weakened support for
+the government. She supports this interpretation with the 1917 bread ration data.
+
+Output:
+("entity"<|>JANE SMITH<|>HISTORIAN<|>Historian named as the author of an interpretation on page 42)
+##
+("entity"<|>WARTIME SHORTAGES WEAKENED GOVERNMENT SUPPORT<|>INTERPRETATION<|>Jane Smith's interpretation that wartime shortages weakened support for the government, stated on page 42)
+##
+("entity"<|>1917 BREAD RATION DATA<|>HISTORICAL_EVIDENCE<|>Bread ration data from 1917 used as evidence on page 42)
+##
+("relationship"<|>JANE SMITH<|>WARTIME SHORTAGES WEAKENED GOVERNMENT SUPPORT<|>[ARGUES] Jane Smith explicitly advances this interpretation on page 42<|>10)
+##
+("relationship"<|>WARTIME SHORTAGES WEAKENED GOVERNMENT SUPPORT<|>1917 BREAD RATION DATA<|>[SUPPORTED_BY] The interpretation explicitly uses the 1917 bread ration data on page 42<|>9)
+<|COMPLETE|>
+
+-Real Data-
+Entity_types: {entity_types}
+Text: {input_text}
+
+Output:
+

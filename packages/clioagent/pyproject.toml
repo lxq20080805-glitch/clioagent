@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clioagent"
+version = "0.1.0"
+description = "Evidence-grounded GraphRAG for IB History and historiography."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = { text = "MIT" }
+dependencies = ["graphrag==3.3.0"]
+
+[project.scripts]
+clioagent = "clioagent.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["clioagent"]
+
